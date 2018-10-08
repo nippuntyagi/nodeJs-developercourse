@@ -1,6 +1,7 @@
-const request = require('request');
 const yargs = require('yargs');
-const key = require('./keys');
+
+const geocode = require('./geocode/geocode');
+const weather = require('./weather/weather');
 
 // Get url from user
 const argV = yargs.options({
@@ -14,15 +15,20 @@ const argV = yargs.options({
 // encodeURIComponent();
 // decodeURIComponent();
 // console.log(argV);
-const address= encodeURIComponent(argV.a);
-request({
-    url:`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&&key=${key.googleMapKey}`,
-    json: true
-}, (error, response, body)=>{
-    // console.log(JSON.stringify(body,undefined,2));
-    // console.log(error);
-    // console.log(response);
-    console.log(`Address: ${body.results[0].formatted_address}`);
-    console.log(`Latitude: ${body.results[0].geometry.location.lat}`);
-    console.log(`Longitude: ${body.results[0].geometry.location.lng}`);
+geocode.geoCodeAddress(argV.Address, (errorMessage, results)=>{
+    if(errorMessage){
+        console.log(errorMessage);
+    } else{
+        // console.log(JSON.stringify(results, undefined, 2));
+        console.log(results.address);
+        // lat, long, callback
+        weather.getWeather(results.Latitude,results.Longitude, (errorMessage, weatherResults)=>{
+            if(errorMessage){
+                console.log(errorMessage);
+            } else{
+                // console.log(JSON.stringify(weatherResults, undefined, 2));
+                console.log(`It's is currently ${weatherResults.temperature}. It feels like ${weatherResults.apparentTemperature}`)
+            }
+        });
+    }
 });
