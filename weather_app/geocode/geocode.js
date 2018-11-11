@@ -4,9 +4,9 @@ const key = require('./../keys');
 
 const geoCodeAddress = (geoAddress, callback)=>{
     const address = encodeURIComponent(geoAddress);
-request({
-    url:`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&&key=${key.googleMapKey}`,
-    json: true
+    request({
+        url:`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&&key=${key.googleMapKey}`,
+        json: true
     }, (error, response, body)=>{
         // console.log(JSON.stringify(body,undefined,2));
         // console.log(error);
