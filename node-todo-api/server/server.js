@@ -1,3 +1,12 @@
+var env = process.env.NODE_ENV || 'development';
+
+if(env === 'development'){
+    process.env.PORT =  3000;
+    process.env.MONGODB_URI = 'mongodb://localhost:27017/TodoApp';
+} else if(env === 'test'){
+    process.env.PORT =  3000;
+    process.env.MONGODB_URI = 'mongodb://localhost:27017/TodoAppTest';
+} 
 const _ = require('lodash');
 var express = require('express');
 var bodyParser = require('body-parser');
@@ -89,8 +98,9 @@ app.patch('/todos/:id',(req, res)=>{
     })
 });
 
+var port = process.env.PORT;
 
-app.listen(3000, ()=>{
+app.listen(port, ()=>{
     console.log('Started at port 3000');   
 })
 
