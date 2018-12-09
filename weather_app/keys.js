@@ -1,5 +1,5 @@
-const googleMapKey = 'Your Google Map Api Key';
-const foreCastKey = 'Your forecast.io Api Key';
+const googleMapKey = 'AIzaSyCYBJtuAuP24YkbyPTNrjZwujj4ygHD61s';
+const foreCastKey = '9e7331178f53a208ebde068723246770';
 
 module.exports = {
     googleMapKey,
